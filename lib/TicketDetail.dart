@@ -82,7 +82,7 @@ class _TicketDetailState extends State<TicketDetail> {
                             ),
                             Divider(height: 1),
                             ListTile(
-                              title: Text(start_bus_station,
+                              title: Text(end_bus_station,
                                   style: TextStyle(fontSize: 18.0)),
                               subtitle: Text("Ending Bus Station"),
                             ),

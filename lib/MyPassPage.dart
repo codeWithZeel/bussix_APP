@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+
+import 'package:brtsprojectapp/AddPassScreen.dart';
+import 'package:brtsprojectapp/HomeScreen.dart';
 import 'package:brtsprojectapp/UrlHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +24,9 @@ class _MyPassPageState extends State<MyPassPage> {
     var response = await http.get(url);
     if(response.statusCode==200)
     {
+      print("success");
       var json = jsonDecode(response.body.toString());
+      print(json);
       return json;
     }
   }
@@ -58,8 +63,8 @@ class _MyPassPageState extends State<MyPassPage> {
                 itemBuilder: (context,position)
                 {
                   return ListTile(
-                    title: Text(snapshot.data[position]["Bus_no"].toString()),
-                    subtitle: Text(snapshot.data[position]["Bus_type"].toString()),
+                    title: Text(snapshot.data[position]["S_location_id"].toString()),
+                    subtitle: Text(snapshot.data[position]["S_location_id"].toString()),
                   );
                 },
               );
@@ -71,6 +76,17 @@ class _MyPassPageState extends State<MyPassPage> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Text("+",style: TextStyle(fontSize: 25),),
+        tooltip: "My pass",
+        onPressed: (){
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context)=>AddPassScreen())
+          );
+        },
+      ),
     );
   }
 }
+
+

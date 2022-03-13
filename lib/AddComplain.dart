@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 import 'UrlHelper.dart';
 
@@ -12,9 +14,22 @@ class AddComplain extends StatefulWidget {
 }
 
 class _AddComplainState extends State<AddComplain> {
+  File _image;
+  final picker = ImagePicker();
   TextEditingController _Userid = TextEditingController();
   TextEditingController _Complain = TextEditingController();
   TextEditingController _Image = TextEditingController();
+
+  Future _getImagefromgallery() async {
+    final pickedImage = await picker.getImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedImage != null) {
+        _image = File(pickedImage.path);
+      } else {
+        print("No Image Selected");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +68,7 @@ class _AddComplainState extends State<AddComplain> {
                   var Image = _Image.text.toString();
 
                   Uri url = Uri.parse(UrlHelper.AddComplain);
-                  var response = await http.post(url,body: {
+                  var response = await http.post(url, body: {
                     "Userid": Userid,
                     "Complain": Complain,
                     "Image": Image
@@ -72,12 +87,18 @@ class _AddComplainState extends State<AddComplain> {
                   height: 60.0,
                   color: Colors.blue,
                   alignment: Alignment.center,
-                  child: Text("Complain",style: TextStyle(color: Colors.white, fontSize: 25.0)),
+                  child: Text("Complain",
+                      style: TextStyle(color: Colors.white, fontSize: 25.0)),
                 ),
               )
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          _getImagefromgallery();
+        },
       ),
     );
   }

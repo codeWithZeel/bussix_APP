@@ -1,31 +1,26 @@
 import 'dart:convert';
 
 import 'package:brtsprojectapp/AddTicket.dart';
-import 'package:brtsprojectapp/AddTicket1.dart';
-import 'package:brtsprojectapp/HomeScreen.dart';
 import 'package:brtsprojectapp/UrlHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+class AddTicket2 extends StatefulWidget {
 
-
-class MyTicketPage extends StatefulWidget {
-
+  var stid="";
+  AddTicket2({this.stid});
 
   @override
-  _MyTicketPageState createState() => _MyTicketPageState();
+  _AddTicket2State createState() => _AddTicket2State();
 }
 
-class _MyTicketPageState extends State<MyTicketPage> {
-
+class _AddTicket2State extends State<AddTicket2> {
   Future<List> data;
 
-  Future<List> getalldata() async
-  {
-    Uri url = Uri.parse(UrlHelper.GET_TICKET);
+  Future<List> getalldata() async {
+    Uri url = Uri.parse(UrlHelper.GET_BUS_STATION);
     var response = await http.get(url);
-    if(response.statusCode==200)
-    {
+    if (response.statusCode == 200) {
       var json = jsonDecode(response.body.toString());
       return json;
     }
@@ -36,7 +31,7 @@ class _MyTicketPageState extends State<MyTicketPage> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      data= getalldata();
+      data = getalldata();
     });
   }
 
@@ -44,7 +39,7 @@ class _MyTicketPageState extends State<MyTicketPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("MyTicketPage"),
+        title: Text("Select End Location"),
       ),
       body: FutureBuilder(
         future: data,
@@ -69,12 +64,8 @@ class _MyTicketPageState extends State<MyTicketPage> {
                           children: [
                             ListTile(
                               onTap: (){
-                                Navigator.of(context).pushNamed("TicketDetail",arguments: {
-                                  "Ticket_id": snapshot.data[position]["Ticket_id"].toString()
-                                });
-                                // Navigator.of(context).push(
-                                //     MaterialPageRoute(builder: (context)=>Addticket())
-                                // );
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Addticket(stid: widget.stid,enid: snapshot.data[position]["Bus_station_id"].toString())));
                               },
                               title: Text(
                                   snapshot.data[position]["Bus_station_address"]
@@ -99,15 +90,6 @@ class _MyTicketPageState extends State<MyTicketPage> {
           {
             return Center(child: CircularProgressIndicator());
           }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Text("+",style: TextStyle(fontSize: 25),),
-        tooltip: "Add Ticket",
-        onPressed: (){
-           Navigator.of(context).push(
-               MaterialPageRoute(builder: (context)=>AddTicket1())
-           );
         },
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:brtsprojectapp/AddComplain.dart';
 import 'package:brtsprojectapp/AllBusPage.dart';
 import 'package:brtsprojectapp/BookYourPassPage.dart';
@@ -15,10 +17,12 @@ import 'package:brtsprojectapp/SupportPage.dart';
 import 'package:brtsprojectapp/TicketBookPage.dart';
 import 'package:brtsprojectapp/TimeTablePage.dart';
 import 'package:brtsprojectapp/AddTicket.dart';
+import 'package:brtsprojectapp/UrlHelper.dart';
 import 'package:brtsprojectapp/WalletPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -27,6 +31,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String username,email;
+  Set<Marker> _markers = Set<Marker>();
+  final double _markerOffset = 170;
 
   _getvalue()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -37,11 +43,32 @@ class _HomeScreenState extends State<HomeScreen> {
     print(username);
   }
 
+  _getmarkers() async {
+    var url = Uri.parse(UrlHelper.GET_BUS_STATION);
+    var response = await http.post(url);
+    if (response.statusCode == 200) {
+      var res = jsonDecode(response.body.toString().trim());
+      for (int i = 0; i < res.length; i++) {
+        //print(res[i]);
+        double lat = double.parse(res[i]["Bus_station_latitude"]);
+        double lon = double.parse(res[i]["Bus_station_longtitude"]);
+
+        setState(() {
+          _markers.add(Marker(
+            markerId: MarkerId(res[i]["Bus_station_id"]),
+            position: LatLng(lat, lon),
+          ));
+        });
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _getvalue();
+    _getmarkers();
 
   }
   @override
@@ -192,29 +219,29 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Divider(),
 
-            ListTile(
-              leading: Icon(Icons.schedule),
-              title: Text("Time Table"),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context)=>TimeTablePage())
-                );
-              },
-            ),
-            Divider(),
+            // ListTile(
+            //   leading: Icon(Icons.schedule),
+            //   title: Text("Time Table"),
+            //   onTap: (){
+            //     Navigator.of(context).pop();
+            //     Navigator.of(context).push(
+            //         MaterialPageRoute(builder: (context)=>TimeTablePage())
+            //     );
+            //   },
+            // ),
+            // Divider(),
 
-            ListTile(
-              leading: Icon(Icons.account_balance_wallet),
-              title: Text("Wallet"),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context)=>WalletPage())
-                );
-              },
-            ),
-            Divider(),
+            // ListTile(
+            //   leading: Icon(Icons.account_balance_wallet),
+            //   title: Text("Wallet"),
+            //   onTap: (){
+            //     Navigator.of(context).pop();
+            //     Navigator.of(context).push(
+            //         MaterialPageRoute(builder: (context)=>WalletPage())
+            //     );
+            //   },
+            // ),
+            // Divider(),
 
 
             // ListTile(
@@ -264,8 +291,8 @@ class _HomeScreenState extends State<HomeScreen> {
           target: LatLng(21.170240,72.831062),
           zoom: 14.4746,
         ),
+        markers: _markers,
         onMapCreated: (GoogleMapController controller) {
-
         },
       ),
     );

@@ -55,11 +55,44 @@ class _LetestNewsPageState extends State<LetestNewsPage> {
             {
               return ListView.builder(
                 itemCount: snapshot.data.length,
-                itemBuilder: (context,position)
-                {
-                  return ListTile(
-                    title: Text(snapshot.data[position]["Title"].toString()),
-                    subtitle: Text(snapshot.data[position]["Description"].toString()),
+                itemBuilder: (context, position) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        InkWell(
+                          onTap: (){
+                            Navigator.of(context).pushNamed("NewsDetails",arguments: {"id":snapshot.data[position]["News_id"].toString()});
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Card(
+                              elevation: 10.0,
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                    UrlHelper.newsimagepath +
+                                        snapshot.data[position]["News_img"]
+                                            .toString(),
+                                    width: 300,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      snapshot.data[position]
+                                      ["Title"]
+                                          .toString(),
+                                      style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   );
                 },
               );

@@ -39,6 +39,8 @@ dependencies:
   fluttertoast:
   shared_preferences:
   cool_alert: ^1.1.0
+  razorpay_flutter:
+  image_picker:
 
 dev_dependencies:
   flutter_test:

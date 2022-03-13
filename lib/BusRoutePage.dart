@@ -57,9 +57,13 @@ class _BusRoutePageState extends State<BusRoutePage> {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context,position)
                 {
-                  return ListTile(
-                    title: Text(snapshot.data[position]["Bus_time"].toString()),
-                    subtitle: Text(snapshot.data[position]["Route_number"].toString()),
+                  return Card(
+                    elevation: 5.0,
+                    child: ListTile(
+                      leading: Text("Route: "+snapshot.data[position]["Route_number"].toString(),style: TextStyle(fontSize: 20.0),),
+                      title: Text("Bus Station: "+snapshot.data[position]["Bus_station_address"].toString()),
+                      subtitle: Text("Timing: "+snapshot.data[position]["Bus_time"].toString()),
+                    ),
                   );
                 },
               );
