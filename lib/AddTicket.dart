@@ -131,7 +131,7 @@ class _AddticketState extends State<Addticket> {
                             onTap: () {
                               var options = {
                                 'key': 'rzp_test_jJ2kmcVL7StY3N',
-                                'amount': 100* 100,
+                                'amount': double.parse(price).round() * 100,
                                 'name': 'BRTS',
                                 'description': 'TIKCET BOOKING',
                                 'retry': {'enabled': true, 'max_count': 1},

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:brtsprojectapp/UrlHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:qr_flutter/qr_flutter.dart';
 
 class TicketDetail extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class TicketDetail extends StatefulWidget {
 
 class _TicketDetailState extends State<TicketDetail> {
   bool loading = true;
-  String start_bus_station,
+  String start_bus_station,ticketid,
       end_bus_station,
       km,
       total_amount,
@@ -28,6 +29,7 @@ class _TicketDetailState extends State<TicketDetail> {
       var data = jsonDecode(response.body);
       // print(data);
       setState(() {
+        ticketid = data[0]["Ticket_id"].toString();
         start_bus_station = data[0]["Bus_station_address"].toString();
         end_bus_station = data[0]["Bus_station_address"].toString();
         km = data[0]["KM"].toString();
@@ -75,6 +77,7 @@ class _TicketDetailState extends State<TicketDetail> {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
+                            (ticketid!="")?QrImage(data: ticketid):CircularProgressIndicator(),
                             ListTile(
                               title: Text(start_bus_station,
                                   style: TextStyle(fontSize: 18.0)),

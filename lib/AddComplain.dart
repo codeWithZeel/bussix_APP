@@ -43,22 +43,29 @@ class _AddComplainState extends State<AddComplain> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Userid"),
               TextField(
                 controller: _Userid,
                 keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    labelText: "Username",
+                    hintText: "Username"),
               ),
               SizedBox(height: 15.0),
-              Text("Complain"),
               TextField(
                 controller: _Complain,
                 keyboardType: TextInputType.text,
-              ),
-              SizedBox(height: 15.0),
-              Text("Image"),
-              TextField(
-                controller: _Image,
-                keyboardType: TextInputType.text,
+                maxLines: 8,
+                decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    labelText: "Complain Text",
+                    hintText: "Complain Text"),
               ),
               SizedBox(height: 15.0),
               GestureDetector(
@@ -96,6 +103,8 @@ class _AddComplainState extends State<AddComplain> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.camera),
+        tooltip: "Add Image",
         onPressed: (){
           _getImagefromgallery();
         },

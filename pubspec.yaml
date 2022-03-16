@@ -41,6 +41,10 @@ dependencies:
   cool_alert: ^1.1.0
   razorpay_flutter:
   image_picker:
+  path_provider:
+  qr_flutter:
+  barcode_scan_fix:
+  introduction_screen: ^3.0.0
 
 dev_dependencies:
   flutter_test:

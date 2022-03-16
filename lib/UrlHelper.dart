@@ -16,11 +16,14 @@ class UrlHelper {
   static String GET_BUS_STATION = BASE_URL + "getallbusstation.php";
   static String GET_SINGLE_PASS= BASE_URL+"getpassdetail.php";
   static String GET_TICKETDETAIL= BASE_URL+"addticketdetail.php";
-
+  static String GET_PASSDETAIL=BASE_URL+"getpassdetail.php";
 
   static String REGISTER = BASE_URL + "register.php";
   static String AddComplain = BASE_URL + "addcomplain.php";
   static String Login = BASE_URL + "Login.php";
+
+  static String FORGOT_PASSWORD = BASE_URL + "forgotpassword.php";
+  static String CHANGE_PASSWORD = BASE_URL + "changepassword.php";
 
 
   static String complain;

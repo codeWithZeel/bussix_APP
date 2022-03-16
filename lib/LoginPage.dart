@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:brtsprojectapp/ForgetPage.dart';
 import 'package:brtsprojectapp/HomeScreen.dart';
 import 'package:brtsprojectapp/RegisterPage.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +142,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed("ForgotPassword");
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context)=>ForgetPage())
+                      );
                     },
                     child: Align(
                       alignment: Alignment.topRight,

@@ -15,6 +15,7 @@ import 'package:brtsprojectapp/MyAccountPage.dart';
 import 'package:brtsprojectapp/MyPassPage.dart';
 import 'package:brtsprojectapp/MyTicketPage.dart';
 import 'package:brtsprojectapp/NewsDetails.dart';
+import 'package:brtsprojectapp/OTPChecking.dart';
 import 'package:brtsprojectapp/OffersPage.dart';
 import 'package:brtsprojectapp/RegisterPage.dart';
 import 'package:brtsprojectapp/SplashScreen.dart';
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
         'NewsDetails': (BuildContext context) => NewsDetails(),
         'AddTicket2': (BuildContext context) => AddTicket2(),
         'AddTicket': (BuildContext context) => Addticket(),
+        'OTPChecking' : (BuildContext context)=>OTPChecking(),
+        'ChangePassword' : (BuildContext context)=>ChangePasswordPage(),
+        'Login' :(BuildContext context)=> LoginPage(),
       },
     );
   }

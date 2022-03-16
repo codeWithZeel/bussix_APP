@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 
+import 'package:brtsprojectapp/AddPass1.dart';
 import 'package:brtsprojectapp/AddPassScreen.dart';
+import 'package:brtsprojectapp/AddTicket1.dart';
 import 'package:brtsprojectapp/HomeScreen.dart';
 import 'package:brtsprojectapp/UrlHelper.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +83,7 @@ class _MyPassPageState extends State<MyPassPage> {
         tooltip: "My pass",
         onPressed: (){
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (context)=>AddPassScreen())
+              MaterialPageRoute(builder: (context)=>AddPass1())
           );
         },
       ),
